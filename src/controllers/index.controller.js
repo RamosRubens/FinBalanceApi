@@ -8,6 +8,10 @@ const pool = new Pool({
     port: '5432'
 })
 
+const getRun = async (req, res) => {
+    res.status(200).send("its ok")
+}
+
 const getUsers = async (req, res) => {
    const response = await pool.query('SELECT * FROM target');
    res.status(200).json(response.rows);
@@ -60,5 +64,6 @@ module.exports = {
     createUser,
     getUsersById,
     deleteUser,
-    updateUser
+    updateUser,
+    getRun
 }
