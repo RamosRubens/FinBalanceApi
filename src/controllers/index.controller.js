@@ -47,18 +47,13 @@ const createTarget = async (req, res) => {
 
 const updateTarget = async (req, res) => {
     const id = parseInt(req.params.id);
-    const {targetType,targetDescription,targetValue} = req.body;
-    const response = await pool.query('UPDATE target SET targettype = $1, targetdescription = $2, targetvalue = $3 WHERE id = $4', [
-        targetType,
-        targetDescription,
+    const {targetValue} = req.body;
+    const response = await pool.query('UPDATE target SET targetvalue = $1 WHERE id = $2', [
         targetValue,
         id
     ]);
     res.json({
-        message: 'Objetivo alterado com sucesso',
-        body: {
-            user: {targetType, targetDescription, targetValue}
-        }
+        message: 'Objetivo alterado com sucesso'
     })
 };
 
