@@ -60,15 +60,37 @@ const deleteTarget = async (req, res) => {
   };
  
  const createUser = async (req, res) => {
-    const {uuid} = req.body;
-    const response = await pool.query('INSERT INTO users (uuid) VALUES($1)', [uuid]);
+    const {uuid, email} = req.body;
+    const response = await pool.query('INSERT INTO users (uuid, email) VALUES($1, $2)', [uuid, email]);
     res.json({
         message: 'Objetivo salvo com sucesso',
         body: {
-            user: {uuid}
+            user: {uuid, email}
         }
     })
  };
+
+ const getAssets = async (req, res) => {
+    const response = await pool.query('SELECT * FROM assets');
+    res.status(200).json(response.rows);
+ };
+ 
+ const getTargetsById = async (req, res) => {
+     const id = parseInt(req.params.id);
+     const response = await pool.query('SELECT * FROM target WHERE id = ($1)', [id]);
+     res.json(response.rows);
+  };
+
+  const getTargets = async (req, res) => {
+    const response = await pool.query('SELECT * FROM target');
+    res.status(200).json(response.rows);
+ };
+ 
+ const getTargetsById = async (req, res) => {
+     const id = parseInt(req.params.id);
+     const response = await pool.query('SELECT * FROM target WHERE id = ($1)', [id]);
+     res.json(response.rows);
+  };
 
 module.exports = {
     getTargets,    
