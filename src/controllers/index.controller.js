@@ -5,11 +5,6 @@ const pool = new Pool({
     ssl: {
         rejectUnauthorized: false
     }
-   /* host: 'localhost',
-    user: 'postgres',
-    password: 'Ru556879',
-    database: 'finbalance',
-    port: '5432'*/
 })
 
 const getRun = async (req, res) => {
@@ -28,18 +23,18 @@ const getDb = async (req, res) => {
       }
 }
 
-const getUsers = async (req, res) => {
+const getTargets = async (req, res) => {
    const response = await pool.query('SELECT * FROM target');
    res.status(200).json(response.rows);
 };
 
-const getUsersById = async (req, res) => {
+const getTargetsById = async (req, res) => {
     const id = parseInt(req.params.id);
     const response = await pool.query('SELECT * FROM target WHERE id = ($1)', [id]);
     res.json(response.rows);
  };
 
-const createUser = async (req, res) => {
+const createTarget = async (req, res) => {
    const {targetType,targetDescription,targetValue} = req.body;
    const response = await pool.query('INSERT INTO target (targetType,targetDescription,targetValue) VALUES($1,$2,$3)', [targetType, targetDescription, targetValue]);
    res.json({
@@ -50,7 +45,7 @@ const createUser = async (req, res) => {
    })
 };
 
-const updateUser = async (req, res) => {
+const updateTarget = async (req, res) => {
     const id = parseInt(req.params.id);
     const {targetType,targetDescription,targetValue} = req.body;
     const response = await pool.query('UPDATE target SET targettype = $1, targetdescription = $2, targetvalue = $3 WHERE id = $4', [
@@ -67,7 +62,7 @@ const updateUser = async (req, res) => {
     })
 };
 
-const deleteUser = async (req, res) => {
+const deleteTarget = async (req, res) => {
     const id = parseInt(req.params.id);
     const response = await pool.query('DELETE FROM target WHERE id = ($1)', [id]);
     res.json({
@@ -76,11 +71,11 @@ const deleteUser = async (req, res) => {
 }
 
 module.exports = {
-    getUsers,
-    createUser,
-    getUsersById,
-    deleteUser,
-    updateUser,
+    getTargets,    
+    createTarget,
+    getTargetsById,
+    deleteTarget,
+    updateTarget,
     getRun,
     getDb
 }

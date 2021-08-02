@@ -4,7 +4,7 @@ CREATE TABLE target(
     id SERIAL PRIMARY KEY,
     targetType VARCHAR(40),
     targetDescription VARCHAR(130),
-    targetValue DOUBLE PRECISION	
+    targetValue FLOAT(5)	
 );
 
 INSERT INTO target (targetType, targetDescription, targetValue) VALUES 
