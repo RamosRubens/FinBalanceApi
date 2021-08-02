@@ -11,18 +11,6 @@ const getRun = async (req, res) => {
     res.status(200).send("its ok")
 }
 
-const getDb = async (req, res) => {
-    try {
-        const client = await pool.connect();
-        const result = await client.query('SELECT * FROM test_table');
-        res.json(result.rows);
-        client.release();
-      } catch (err) {
-        console.error(err);
-        res.send("Error " + err);
-      }
-}
-
 const getTargets = async (req, res) => {
    const response = await pool.query('SELECT * FROM target');
    res.status(200).json(response.rows);
@@ -64,6 +52,23 @@ const deleteTarget = async (req, res) => {
         message: "Objetivo deletado com sucesso!"
     });
 }
+ 
+ const getUsersById = async (req, res) => {
+     const id = parseInt(req.params.id);
+     const response = await pool.query('SELECT * FROM users WHERE id = ($1)', [id]);
+     res.json(response.rows);
+  };
+ 
+ const createUser = async (req, res) => {
+    const {uuid} = req.body;
+    const response = await pool.query('INSERT INTO users (uuid) VALUES($1)', [uuid]);
+    res.json({
+        message: 'Objetivo salvo com sucesso',
+        body: {
+            user: {uuid}
+        }
+    })
+ };
 
 module.exports = {
     getTargets,    
@@ -71,6 +76,7 @@ module.exports = {
     getTargetsById,
     deleteTarget,
     updateTarget,
-    getRun,
-    getDb
+    getUsersById,
+    createUser,
+    getRun
 }

@@ -14,3 +14,8 @@ INSERT INTO target (targetType, targetDescription, targetValue) VALUES
 ('Stocks', 'Defina a porcentagem de Stocks', 0.0),
 ('Reits', 'Defina a porcentagem de Reits', 0.0),
 ('Criptomoedas', 'Defina a porcentagem de Criptomoedas', 0.0);
+
+CREATE TABLE users(
+    id SERIAL PRIMARY KEY,
+    uuid VARCHAR(120)
+);
