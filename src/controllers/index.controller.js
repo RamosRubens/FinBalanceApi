@@ -75,20 +75,20 @@ const deleteTarget = async (req, res) => {
     res.status(200).json(response.rows);
  };
  
- const getTargetsById = async (req, res) => {
+ const getAssetsById = async (req, res) => {
      const id = parseInt(req.params.id);
-     const response = await pool.query('SELECT * FROM target WHERE id = ($1)', [id]);
+     const response = await pool.query('SELECT * FROM assets WHERE id = ($1)', [id]);
      res.json(response.rows);
   };
 
-  const getTargets = async (req, res) => {
-    const response = await pool.query('SELECT * FROM target');
+  const getAports = async (req, res) => {
+    const response = await pool.query('SELECT * FROM aport');
     res.status(200).json(response.rows);
  };
  
- const getTargetsById = async (req, res) => {
+ const getAportsById = async (req, res) => {
      const id = parseInt(req.params.id);
-     const response = await pool.query('SELECT * FROM target WHERE id = ($1)', [id]);
+     const response = await pool.query('SELECT * FROM aport WHERE id = ($1)', [id]);
      res.json(response.rows);
   };
 
@@ -100,5 +100,9 @@ module.exports = {
     updateTarget,
     getUsersById,
     createUser,
+    getAssets,
+    getAssetsById,
+    getAports,
+    getAportsById,
     getRun
 }
